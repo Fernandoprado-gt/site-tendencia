@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 const HeroSection = () => {
   const {
     toast
@@ -68,9 +69,16 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="space-y-6 animate-fade-in">
             <div className="mb-8">
-              <img src="/images/logo.png" alt="Tendência | Estratégias Digitais" className="h-14 mb-8" onError={e => {
-              e.currentTarget.src = "https://placehold.co/200x56/1A1F2C/00F2FF?text=TENDÊNCIA";
-            }} />
+              <a href="/">
+                <img 
+                  src="/tendencia-logo.png" 
+                  alt="Logo da Tendência | Estratégias Digitais" 
+                  className="h-14 md:h-16 w-auto mb-8"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://placehold.co/200x56/1A1F2C/00F2FF?text=TENDÊNCIA";
+                  }}
+                />
+              </a>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               Tráfego Pago Especializado para <span className="gradient-text">Imobiliárias.</span>

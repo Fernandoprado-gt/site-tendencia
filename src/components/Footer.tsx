@@ -15,14 +15,16 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
           <div>
-            <img 
-              src="/images/logo.png" 
-              alt="Tendência | Estratégias Digitais" 
-              className="h-12 mb-6"
-              onError={(e) => {
-                e.currentTarget.src = "https://placehold.co/200x48/1A1F2C/00F2FF?text=TENDÊNCIA";
-              }}
-            />
+            <a href="/">
+              <img 
+                src="/tendencia-logo.png" 
+                alt="Logo da Tendência | Estratégias Digitais" 
+                className="h-10 md:h-12 w-auto mb-6"
+                onError={(e) => {
+                  e.currentTarget.src = "https://placehold.co/200x48/1A1F2C/00F2FF?text=TENDÊNCIA";
+                }}
+              />
+            </a>
             <p className="text-gray-300 max-w-md">
               Agência especializada em tráfego pago para o mercado imobiliário,
               com foco em resultados reais para nossos clientes.

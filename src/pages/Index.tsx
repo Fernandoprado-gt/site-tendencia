@@ -1,4 +1,5 @@
 
+import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import MethodSection from "@/components/MethodSection";
@@ -12,6 +13,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 const Index = () => {
   return (
     <div className="min-h-screen bg-tendencia-darker text-white">
+      <Navbar />
       <HeroSection />
       <AboutSection />
       <MethodSection />
