@@ -69,9 +69,7 @@ const HeroSection = () => {
           <div className="space-y-6 animate-fade-in">
             <div className="mb-8">
               <a href="/">
-                <img alt="Logo da Tendência | Estratégias Digitais" className="h-16 md:h-20 w-auto mb-8" onError={e => {
-                e.currentTarget.src = "https://placehold.co/320x80/1A1F2C/00F2FF?text=TENDÊNCIA";
-              }} src="/lovable-uploads/1f1bf3f5-99ea-4584-9af1-14f35585d594.png" />
+                
               </a>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
