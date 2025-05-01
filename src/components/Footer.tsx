@@ -19,9 +19,9 @@ const Footer = () => {
               <img 
                 src="/tendencia-logo.png" 
                 alt="Logo da Tendência | Estratégias Digitais" 
-                className="h-10 md:h-12 w-auto mb-6"
+                className="h-12 md:h-14 w-auto mb-6"
                 onError={(e) => {
-                  e.currentTarget.src = "https://placehold.co/200x48/1A1F2C/00F2FF?text=TENDÊNCIA";
+                  e.currentTarget.src = "https://placehold.co/240x56/1A1F2C/00F2FF?text=TENDÊNCIA";
                 }}
               />
             </a>

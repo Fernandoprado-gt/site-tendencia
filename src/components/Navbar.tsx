@@ -43,10 +43,10 @@ const Navbar = () => {
             alt="Logo da Tendência | Estratégias Digitais"
             className={cn(
               "transition-all duration-300 w-auto",
-              scrolled ? "h-8 md:h-10" : "h-10 md:h-12"
+              scrolled ? "h-10 md:h-12" : "h-12 md:h-14"
             )}
             onError={(e) => {
-              e.currentTarget.src = "https://placehold.co/200x40/1A1F2C/00F2FF?text=TENDÊNCIA";
+              e.currentTarget.src = "https://placehold.co/200x50/1A1F2C/00F2FF?text=TENDÊNCIA";
             }}
           />
         </a>
