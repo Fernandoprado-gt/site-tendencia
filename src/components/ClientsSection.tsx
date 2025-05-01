@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 
 const clients = [
-  { name: "Lopes", logo: "/images/clients/lopes.png" },
+  { name: "Lopes", logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png" },
   { name: "Nexus", logo: "/images/clients/nexus.png" },
   { name: "Daniel Brito", logo: "/images/clients/daniel-brito.png" },
   { name: "Flavia Fernandes", logo: "/images/clients/flavia-fernandes.png" },
