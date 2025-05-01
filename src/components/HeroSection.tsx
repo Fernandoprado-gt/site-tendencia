@@ -1,20 +1,14 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 const HeroSection = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -22,22 +16,22 @@ const HeroSection = () => {
     position: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const {
+      name,
+      value
+    } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
-
   const handlePositionChange = (value: string) => {
     setFormData(prev => ({
       ...prev,
       position: value
     }));
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -69,7 +63,6 @@ const HeroSection = () => {
       setIsSubmitting(false);
     }, 2000);
   };
-
   return <section className="min-h-[90vh] flex items-center pt-8 pb-16 bg-hero-pattern bg-cover bg-center bg-no-repeat">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -82,9 +75,9 @@ const HeroSection = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               Tráfego Pago Especializado para <span className="gradient-text">Imobiliárias.</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300">Há 9 anos no Mercado digital, há 5 anos vivendo
-do mercado imobiliário.
-Trabalhamos com estratégias que geram resultado reais.</p>
+            <p className="text-lg md:text-xl text-gray-300">9 anos de expertise no marketing digital,
+5 anos transformando o mercado imobiliário.
+Entregamos estratégias que geram resultado de verdade.</p>
             <div className="flex items-center gap-4 pt-4">
               <Button size="lg" className="bg-cyan-gradient hover:opacity-90 transition-opacity animate-pulse-glow group" onClick={() => window.location.href = "https://wa.me/5521999999999"}>
                 <WhatsappIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" /> 
@@ -114,14 +107,8 @@ Trabalhamos com estratégias que geram resultado reais.</p>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="position">Cargo</Label>
-                <Select
-                  value={formData.position}
-                  onValueChange={handlePositionChange}
-                >
-                  <SelectTrigger 
-                    id="position"
-                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan text-white"
-                  >
+                <Select value={formData.position} onValueChange={handlePositionChange}>
+                  <SelectTrigger id="position" className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan text-white">
                     <SelectValue placeholder="Selecione seu cargo" />
                   </SelectTrigger>
                   <SelectContent className="bg-tendencia-dark border-tendencia-cyan/30 text-white">
