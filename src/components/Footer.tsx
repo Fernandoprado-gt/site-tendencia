@@ -1,29 +1,20 @@
-
 import { ArrowUpIcon } from "./icons/ArrowUpIcon";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
-
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: "smooth"
     });
   };
-
-  return (
-    <footer className="bg-tendencia-darker pt-12 pb-6 border-t border-tendencia-cyan/20">
+  return <footer className="bg-tendencia-darker pt-12 pb-6 border-t border-tendencia-cyan/20">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
           <div>
             <a href="/">
-              <img 
-                src="/tendencia-logo.png" 
-                alt="Logo da Tendência | Estratégias Digitais" 
-                className="h-12 md:h-14 w-auto mb-6"
-                onError={(e) => {
-                  e.currentTarget.src = "https://placehold.co/240x56/1A1F2C/00F2FF?text=TENDÊNCIA";
-                }}
-              />
+              <img src="/tendencia-logo.png" alt="Logo da Tendência | Estratégias Digitais" className="h-12 md:h-14 w-auto mb-6" onError={e => {
+              e.currentTarget.src = "https://placehold.co/240x56/1A1F2C/00F2FF?text=TENDÊNCIA";
+            }} />
             </a>
             <p className="text-gray-300 max-w-md">
               Agência especializada em tráfego pago para o mercado imobiliário,
@@ -31,17 +22,10 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-col items-center md:items-end">
-            <button
-              onClick={scrollToTop}
-              className="bg-tendencia-dark p-4 rounded-full border border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 transition-colors mb-6"
-              aria-label="Voltar ao topo"
-            >
+            <button onClick={scrollToTop} className="bg-tendencia-dark p-4 rounded-full border border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 transition-colors mb-6" aria-label="Voltar ao topo">
               <ArrowUpIcon />
             </button>
-            <a 
-              href="https://wa.me/5521999999999" 
-              className="bg-cyan-gradient text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2"
-            >
+            <a href="https://wa.me/5521999999999" className="bg-cyan-gradient text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2">
               <WhatsappIcon className="h-5 w-5" /> 
               Falar com um especialista
             </a>
@@ -53,7 +37,7 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-4">Contato</h4>
             <ul className="space-y-2 text-gray-300">
               <li>contato@tendencia.digital</li>
-              <li>(21) 99999-9999</li>
+              <li>(21) 97961-3063</li>
               <li>Rio de Janeiro, RJ</li>
             </ul>
           </div>
@@ -99,8 +83,6 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} Tendência | Estratégias Digitais. Todos os direitos reservados.</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
