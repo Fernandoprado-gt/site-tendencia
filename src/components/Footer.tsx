@@ -12,9 +12,9 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
           <div>
             <a href="/">
-              <img src="/tendencia-logo.png" alt="Logo da Tendência | Estratégias Digitais" className="h-12 md:h-14 w-auto mb-6" onError={e => {
+              <img alt="Logo da Tendência | Estratégias Digitais" className="h-12 md:h-14 w-auto mb-6" onError={e => {
               e.currentTarget.src = "https://placehold.co/240x56/1A1F2C/00F2FF?text=TENDÊNCIA";
-            }} />
+            }} src="/lovable-uploads/5fe0cd4e-fb0f-458a-a7de-c494046bce22.png" />
             </a>
             <p className="text-gray-300 max-w-md">
               Agência especializada em tráfego pago para o mercado imobiliário,
