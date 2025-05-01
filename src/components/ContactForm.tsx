@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -19,6 +26,13 @@ const ContactForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePositionChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      position: value
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -149,14 +163,24 @@ const ContactForm = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contact-position">Cargo</Label>
-                <Input
-                  id="contact-position"
-                  name="position"
-                  placeholder="Seu cargo na empresa"
+                <Select
                   value={formData.position}
-                  onChange={handleChange}
-                  className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
-                />
+                  onValueChange={handlePositionChange}
+                >
+                  <SelectTrigger 
+                    id="contact-position"
+                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan text-white"
+                  >
+                    <SelectValue placeholder="Selecione seu cargo" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-tendencia-dark border-tendencia-cyan/30 text-white">
+                    <SelectItem value="Corretor autônomo">Corretor autônomo</SelectItem>
+                    <SelectItem value="Corretor associado a uma imobiliária">Corretor associado a uma imobiliária</SelectItem>
+                    <SelectItem value="Gerente de vendas">Gerente de vendas</SelectItem>
+                    <SelectItem value="Diretor de vendas">Diretor de vendas</SelectItem>
+                    <SelectItem value="Dono da imobiliária">Dono da imobiliária</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <Button 
                 type="submit" 

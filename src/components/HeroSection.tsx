@@ -1,13 +1,20 @@
+
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const HeroSection = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -15,16 +22,22 @@ const HeroSection = () => {
     position: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      name,
-      value
-    } = e.target;
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
+
+  const handlePositionChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      position: value
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -56,6 +69,7 @@ const HeroSection = () => {
       setIsSubmitting(false);
     }, 2000);
   };
+
   return <section className="min-h-[90vh] flex items-center pt-8 pb-16 bg-hero-pattern bg-cover bg-center bg-no-repeat">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -100,7 +114,24 @@ Trabalhamos com estratégias que geram resultado reais.</p>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="position">Cargo</Label>
-                <Input id="position" name="position" placeholder="Seu cargo na empresa" value={formData.position} onChange={handleChange} className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan" />
+                <Select
+                  value={formData.position}
+                  onValueChange={handlePositionChange}
+                >
+                  <SelectTrigger 
+                    id="position"
+                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan text-white"
+                  >
+                    <SelectValue placeholder="Selecione seu cargo" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-tendencia-dark border-tendencia-cyan/30 text-white">
+                    <SelectItem value="Corretor autônomo">Corretor autônomo</SelectItem>
+                    <SelectItem value="Corretor associado a uma imobiliária">Corretor associado a uma imobiliária</SelectItem>
+                    <SelectItem value="Gerente de vendas">Gerente de vendas</SelectItem>
+                    <SelectItem value="Diretor de vendas">Diretor de vendas</SelectItem>
+                    <SelectItem value="Dono da imobiliária">Dono da imobiliária</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <Button type="submit" className="w-full bg-cyan-gradient hover:opacity-90 transition-opacity mt-4" disabled={isSubmitting}>
                 {isSubmitting ? "Enviando..." : "Quero aumentar minhas vendas"}
