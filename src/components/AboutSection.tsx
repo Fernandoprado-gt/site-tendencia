@@ -1,24 +1,18 @@
-
 import { Badge } from "@/components/ui/badge";
-
 const AboutSection = () => {
-  return (
-    <section id="about" className="section-padding bg-gradient-to-b from-tendencia-darker to-tendencia-dark">
+  return <section id="about" className="section-padding bg-gradient-to-b from-tendencia-darker to-tendencia-dark">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/2 lg:w-2/5">
             <div className="rounded-2xl overflow-hidden border-2 border-tendencia-cyan/30 animate-fade-in">
-              <img 
-                src="/images/founder.jpg" 
-                alt="Fernando Prado - Fundador da Tendência" 
-                className="w-full h-auto object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = "https://placehold.co/600x600/1A1F2C/00F2FF?text=Fernando+Prado";
-                }}
-              />
+              <img alt="Fernando Prado - Fundador da Tendência" onError={e => {
+              e.currentTarget.src = "https://placehold.co/600x600/1A1F2C/00F2FF?text=Fernando+Prado";
+            }} className="w-full h-auto object-fill" src="/lovable-uploads/237b7129-b055-416d-b4ae-f9c63afd545f.png" />
             </div>
           </div>
-          <div className="md:w-1/2 lg:w-3/5 space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="md:w-1/2 lg:w-3/5 space-y-6 animate-fade-in" style={{
+          animationDelay: '0.2s'
+        }}>
             <Badge variant="outline" className="border-tendencia-cyan text-tendencia-cyan px-4 py-1 text-sm">
               Sobre a Tendência
             </Badge>
@@ -43,8 +37,6 @@ const AboutSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default AboutSection;
