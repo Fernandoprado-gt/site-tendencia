@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -6,9 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
 const HeroSection = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -16,22 +16,22 @@ const HeroSection = () => {
     position: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const {
+      name,
+      value
+    } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
-  
   const handlePositionChange = (value: string) => {
     setFormData(prev => ({
       ...prev,
       position: value
     }));
   };
-  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -63,22 +63,15 @@ const HeroSection = () => {
       setIsSubmitting(false);
     }, 2000);
   };
-  
-  return (
-    <section className="min-h-[90vh] flex items-center pt-8 pb-16 bg-hero-pattern bg-cover bg-center bg-no-repeat">
+  return <section className="min-h-[90vh] flex items-center pt-8 pb-16 bg-hero-pattern bg-cover bg-center bg-no-repeat">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="space-y-6 animate-fade-in">
             <div className="mb-8">
               <a href="/">
-                <img 
-                  src="/tendencia-logo.png" 
-                  alt="Logo da Tendência | Estratégias Digitais" 
-                  className="h-16 md:h-20 w-auto mb-8"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://placehold.co/320x80/1A1F2C/00F2FF?text=TENDÊNCIA";
-                  }}
-                />
+                <img alt="Logo da Tendência | Estratégias Digitais" className="h-16 md:h-20 w-auto mb-8" onError={e => {
+                e.currentTarget.src = "https://placehold.co/320x80/1A1F2C/00F2FF?text=TENDÊNCIA";
+              }} src="/lovable-uploads/1f1bf3f5-99ea-4584-9af1-14f35585d594.png" />
               </a>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
@@ -136,8 +129,6 @@ Entregamos estratégias que geram resultado de verdade.</p>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
