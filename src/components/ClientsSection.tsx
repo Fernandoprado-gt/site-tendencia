@@ -1,29 +1,38 @@
+
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 // Lista de clientes centralizada para facilitar atualizações
 const clients = [{
   name: "Lopes",
-  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png"
+  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
+  alt: "Logo da Lopes"
 }, {
   name: "Nexus",
-  logo: "/images/clients/nexus.png"
+  logo: "/lovable-uploads/0c90bb55-a538-4a11-8305-7346b0fb2837.png",
+  alt: "Logo da Nexus"
 }, {
   name: "Daniel Brito",
-  logo: "/images/clients/daniel-brito.png"
+  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
+  alt: "Logo da Lopes"
 }, {
   name: "Flavia Fernandes",
-  logo: "/images/clients/flavia-fernandes.png"
+  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
+  alt: "Logo da Lopes"
 }, {
   name: "Real Estate Corp",
-  logo: "/images/clients/real-estate-corp.png"
+  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
+  alt: "Logo da Lopes"
 }, {
   name: "Rio Imóveis",
-  logo: "/images/clients/rio-imoveis.png"
+  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
+  alt: "Logo da Lopes"
 }, {
   name: "PrimeHome",
-  logo: "/images/clients/primehome.png"
+  logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
+  alt: "Logo da Lopes"
 }];
+
 const ClientsSection = () => {
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
 
@@ -40,6 +49,7 @@ const ClientsSection = () => {
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, clientName: string) => {
     e.currentTarget.src = `https://placehold.co/300x150/1A1F2C/00F2FF?text=${clientName}`;
   };
+  
   return <section id="clients" className="section-padding bg-gradient-to-b from-tendencia-dark to-tendencia-darker">
       <div className="container mx-auto">
         <div className="text-center mb-16 animate-fade-in">
@@ -60,7 +70,12 @@ const ClientsSection = () => {
               {clients.map((client, index) => <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-4">
                     <div className="w-full h-40 bg-tendencia-dark/50 rounded-2xl flex items-center justify-center p-6 border border-tendencia-cyan/20">
-                      <img src={client.logo} alt={`${client.name} logo`} onError={e => handleImageError(e, client.name)} className="max-w-full max-h-full object-fill" />
+                      <img 
+                        src={client.logo} 
+                        alt={client.alt} 
+                        onError={e => handleImageError(e, client.name)} 
+                        className="max-w-full max-h-[60px] object-contain" 
+                      />
                     </div>
                     <h3 className="mt-4 text-xl font-semibold text-center">{client.name}</h3>
                   </div>
