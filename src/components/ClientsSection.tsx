@@ -20,15 +20,15 @@ const clients = [{
   logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
   alt: "Logo da Lopes"
 }, {
-  name: "Real Estate Corp",
+  name: "Bruna Germano",
   logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
   alt: "Logo da Lopes"
 }, {
-  name: "Rio Imóveis",
+  name: "Leonardo Motta",
   logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
   alt: "Logo da Lopes"
 }, {
-  name: "PrimeHome",
+  name: "Kaique Andrade",
   logo: "/lovable-uploads/eda63c99-8b1a-4991-b169-b783047aafa5.png",
   alt: "Logo da Lopes"
 }];
