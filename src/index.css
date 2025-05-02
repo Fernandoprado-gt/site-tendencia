@@ -69,6 +69,11 @@
     @apply py-16 md:py-24;
   }
 
+  /* Updated section spacing to ensure consistent vertical spacing between sections */
+  .section-spacing {
+    @apply pt-[60px] md:pt-[80px] lg:pt-[100px];
+  }
+
   .gradient-text {
     @apply bg-clip-text text-transparent bg-cyan-gradient;
   }
