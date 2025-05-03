@@ -26,7 +26,7 @@ const Footer = () => {
             <button onClick={scrollToTop} className="bg-tendencia-dark p-4 rounded-full border border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 transition-colors mb-6" aria-label="Voltar ao topo">
               <ArrowUpIcon />
             </button>
-            <a href="https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência." className="bg-cyan-gradient text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2">
+            <a href="https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital." className="bg-cyan-gradient text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2">
               <WhatsappIcon className="h-5 w-5" /> 
               Falar com um especialista
             </a>
