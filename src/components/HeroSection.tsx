@@ -59,8 +59,8 @@ const HeroSection = () => {
       // Create the WhatsApp message with form data
       const message = encodeURIComponent(`Olá! Meu nome é ${formData.name}, sou ${formData.position}. Gostaria de saber mais sobre as estratégias de tráfego pago para imobiliárias da Tendência.`);
 
-      // Redirect to WhatsApp (using a placeholder phone number - replace with the actual one)
-      window.location.href = `https://wa.me/5521999999999?text=${message}`;
+      // Redirect to WhatsApp (with updated phone number)
+      window.location.href = `https://wa.me/5521979613063?text=${message}`;
       setIsSubmitting(false);
     }, 2000);
   };
@@ -93,7 +93,7 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-cyan-gradient hover:opacity-90 transition-opacity animate-pulse-glow group w-full md:w-auto text-sm md:text-base" 
-                onClick={() => window.location.href = "https://wa.me/5521999999999"}
+                onClick={() => window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência."}
               >
                 <WhatsappIcon className="mr-2 h-4 md:h-5 w-4 md:w-5 group-hover:scale-110 transition-transform" /> 
                 Falar com um especialista agora
