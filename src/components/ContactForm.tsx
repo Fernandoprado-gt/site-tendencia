@@ -114,7 +114,7 @@ const ContactForm = () => {
               <Button 
                 size="lg"
                 className="bg-cyan-gradient hover:opacity-90 transition-opacity animate-pulse-glow group"
-                onClick={() => window.location.href = "https://wa.me/5521999999999"}
+                onClick={() => window.location.href = "https://wa.me/5521979613063"}
               >
                 <WhatsappIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" /> 
                 Falar com um especialista agora
