@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -22,6 +23,7 @@ const ContactForm = () => {
     position: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,7 +37,7 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -50,24 +52,48 @@ const ContactForm = () => {
       return;
     }
 
-    // Show success message
-    toast({
-      title: "Formulário enviado com sucesso!",
-      description: "Você será redirecionado para iniciar a conversa com um especialista.",
-    });
-
-    // Simulate API call delay
-    setTimeout(() => {
+    try {
+      // Insert lead into Supabase
+      const { error } = await supabase
+        .from('leads')
+        .insert([
+          { 
+            nome: formData.name,
+            telefone: formData.phone,
+            email: formData.email,
+            cargo: formData.position,
+          }
+        ]);
+      
+      if (error) throw error;
+      
+      // Show success message
+      toast({
+        title: "Formulário enviado com sucesso!",
+        description: "Obrigado! Em breve entraremos em contato para criar sua campanha personalizada.",
+      });
+      
+      setFormSubmitted(true);
+      
       // Create the WhatsApp message with form data
       const message = encodeURIComponent(
-        `Olá! Meu nome é ${formData.name}, sou ${formData.position}. Gostaria de saber mais sobre as estratégias de tráfego pago para imobiliárias da Tendência.`
+        `Olá! Meu nome é ${formData.name}, sou ${formData.position}. Tenho interesse em criar uma campanha com a Tendência Digital.`
       );
       
-      // Redirect to WhatsApp (using a placeholder phone number - replace with the actual one)
-      window.location.href = `https://wa.me/5521979613063?text=${message}`;
-      
+      // Redirect to WhatsApp after a short delay
+      setTimeout(() => {
+        window.location.href = `https://wa.me/5521979613063?text=${message}`;
+        setIsSubmitting(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Erro ao enviar formulário",
+        description: "Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.",
+        variant: "destructive",
+      });
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -114,7 +140,7 @@ const ContactForm = () => {
               <Button 
                 size="lg"
                 className="bg-cyan-gradient hover:opacity-90 transition-opacity animate-pulse-glow group"
-                onClick={() => window.location.href = "https://wa.me/5521979613063"}
+                onClick={() => window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital."}
               >
                 <WhatsappIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" /> 
                 Falar com um especialista agora
@@ -126,70 +152,84 @@ const ContactForm = () => {
             <h3 className="text-xl font-semibold mb-6 gradient-text">
               Solicite uma análise gratuita do seu negócio
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="contact-name">Nome</Label>
-                <Input
-                  id="contact-name"
-                  name="name"
-                  placeholder="Seu nome completo"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
-                />
+            
+            {formSubmitted ? (
+              <div className="text-center py-8 space-y-6">
+                <div className="text-tendencia-cyan text-5xl mb-4">✓</div>
+                <h4 className="text-2xl font-bold">Formulário enviado com sucesso!</h4>
+                <p className="text-gray-300">
+                  Obrigado! Em breve entraremos em contato para criar sua campanha personalizada.
+                </p>
+                <p className="text-gray-300 text-sm">
+                  Você será redirecionado para o WhatsApp em instantes...
+                </p>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="contact-phone">Telefone</Label>
-                <Input
-                  id="contact-phone"
-                  name="phone"
-                  placeholder="(00) 00000-0000"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="contact-email">E-mail</Label>
-                <Input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="contact-position">Cargo</Label>
-                <Select
-                  value={formData.position}
-                  onValueChange={handlePositionChange}
-                >
-                  <SelectTrigger 
-                    id="contact-position"
-                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan text-white"
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="contact-name">Nome</Label>
+                  <Input
+                    id="contact-name"
+                    name="name"
+                    placeholder="Seu nome completo"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="contact-phone">Telefone</Label>
+                  <Input
+                    id="contact-phone"
+                    name="phone"
+                    placeholder="(00) 00000-0000"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="contact-email">E-mail</Label>
+                  <Input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="contact-position">Cargo</Label>
+                  <Select
+                    value={formData.position}
+                    onValueChange={handlePositionChange}
                   >
-                    <SelectValue placeholder="Selecione seu cargo" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-tendencia-dark border-tendencia-cyan/30 text-white">
-                    <SelectItem value="Corretor autônomo">Corretor autônomo</SelectItem>
-                    <SelectItem value="Corretor associado a uma imobiliária">Corretor associado a uma imobiliária</SelectItem>
-                    <SelectItem value="Gerente de vendas">Gerente de vendas</SelectItem>
-                    <SelectItem value="Diretor de vendas">Diretor de vendas</SelectItem>
-                    <SelectItem value="Dono da imobiliária">Dono da imobiliária</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <Button 
-                type="submit" 
-                className="w-full bg-cyan-gradient hover:opacity-90 transition-opacity mt-4"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Enviando..." : "Quero aumentar minhas vendas"}
-              </Button>
-            </form>
+                    <SelectTrigger 
+                      id="contact-position"
+                      className="bg-tendencia-darker/50 border-tendencia-cyan/30 focus:border-tendencia-cyan focus:ring-tendencia-cyan text-white"
+                    >
+                      <SelectValue placeholder="Selecione seu cargo" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-tendencia-dark border-tendencia-cyan/30 text-white">
+                      <SelectItem value="Corretor autônomo">Corretor autônomo</SelectItem>
+                      <SelectItem value="Corretor associado a uma imobiliária">Corretor associado a uma imobiliária</SelectItem>
+                      <SelectItem value="Gerente de vendas">Gerente de vendas</SelectItem>
+                      <SelectItem value="Diretor de vendas">Diretor de vendas</SelectItem>
+                      <SelectItem value="Dono da imobiliária">Dono da imobiliária</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-cyan-gradient hover:opacity-90 transition-opacity mt-4"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Enviando..." : "Quero aumentar minhas vendas"}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </div>
