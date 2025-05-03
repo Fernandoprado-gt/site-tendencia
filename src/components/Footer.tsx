@@ -37,7 +37,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-4">Contato</h4>
             <ul className="space-y-2 text-gray-300">
-              <li>contato@tendencia.digital</li>
+              <li>fernandoprado.tendencia@gmail.com</li>
               <li>(21) 97961-3063</li>
               <li>Rio de Janeiro, RJ</li>
             </ul>
