@@ -64,7 +64,7 @@ const ContactForm = () => {
       );
       
       // Redirect to WhatsApp (using a placeholder phone number - replace with the actual one)
-      window.location.href = `https://wa.me/5521999999999?text=${message}`;
+      window.location.href = `https://wa.me/5521979613063?text=${message}`;
       
       setIsSubmitting(false);
     }, 2000);
