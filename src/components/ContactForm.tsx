@@ -53,6 +53,9 @@ const ContactForm = () => {
     }
 
     try {
+      // Debug log - for checking form data before submission
+      console.log("Form data being submitted:", formData);
+      
       // Insert lead into Supabase
       const { error } = await supabase
         .from('leads')
