@@ -57,9 +57,9 @@ const ContactForm = () => {
     }
 
     try {
-      // Debug Supabase client settings
-      console.log("Supabase URL:", supabase.supabaseUrl);
+      // Debug Supabase client settings - removing the protected property access
       console.log("Supabase client initialized:", !!supabase);
+      console.log("Attempting to connect to Supabase...");
       
       // Prepare data object to match Supabase column names
       const leadData = { 
