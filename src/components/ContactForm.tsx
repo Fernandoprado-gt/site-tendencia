@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, testSupabaseConnection } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -57,9 +57,13 @@ const ContactForm = () => {
     }
 
     try {
-      // Debug Supabase client settings - removing the protected property access
+      // Debug Supabase client initialization
       console.log("Supabase client initialized:", !!supabase);
-      console.log("Attempting to connect to Supabase...");
+      console.log("Attempting to insert data into Supabase...");
+      
+      // Test connection to Supabase before attempting insert
+      const connectionTest = await testSupabaseConnection();
+      console.log("Supabase connection test result:", connectionTest);
       
       // Prepare data object to match Supabase column names
       const leadData = { 
@@ -111,18 +115,6 @@ const ContactForm = () => {
       }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
-      // Check if we have Supabase connection
-      console.log("Testing Supabase connection...");
-      try {
-        const { data, error: pingError } = await supabase.from('leads').select('count').limit(1);
-        if (pingError) {
-          console.error("Supabase connection test failed:", pingError);
-        } else {
-          console.log("Supabase connection test succeeded:", data);
-        }
-      } catch (testError) {
-        console.error("Supabase connection test exception:", testError);
-      }
       
       toast({
         title: "Erro ao enviar formulário",
