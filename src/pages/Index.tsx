@@ -9,6 +9,7 @@ import FaqSection from "@/components/FaqSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   return (
@@ -33,6 +34,7 @@ const Index = () => {
       </div>
       <Footer />
       <FloatingWhatsApp />
+      <Toaster />
     </div>
   );
 };

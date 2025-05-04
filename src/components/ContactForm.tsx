@@ -28,7 +28,7 @@ const ContactForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log("Field updated:", name, value); // Log field changes
+    console.log("Field updated:", name, value);
   };
 
   const handlePositionChange = (value: string) => {
@@ -36,17 +36,17 @@ const ContactForm = () => {
       ...prev,
       position: value
     }));
-    console.log("Position updated:", value); // Log position changes
+    console.log("Position updated:", value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submission started"); // Log submission start
+    console.log("Form submission started with data:", formData);
     setIsSubmitting(true);
     
     // Validate form
     if (!formData.name || !formData.phone || !formData.email || !formData.position) {
-      console.log("Form validation failed:", formData); // Log validation failure
+      console.log("Form validation failed:", formData);
       toast({
         title: "Erro no formulário",
         description: "Por favor, preencha todos os campos.",
@@ -57,8 +57,9 @@ const ContactForm = () => {
     }
 
     try {
-      // Debug log - for checking form data before submission
-      console.log("Form data being submitted:", formData);
+      // Debug Supabase client settings
+      console.log("Supabase URL:", supabase.supabaseUrl);
+      console.log("Supabase client initialized:", !!supabase);
       
       // Prepare data object to match Supabase column names
       const leadData = { 
@@ -75,8 +76,14 @@ const ContactForm = () => {
         .from('leads')
         .insert([leadData]);
       
+      // Detailed error logging
       if (error) {
-        console.error("Supabase insertion error:", error);
+        console.error("Supabase insertion error details:", {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
         throw error;
       }
       
@@ -104,6 +111,19 @@ const ContactForm = () => {
       }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
+      // Check if we have Supabase connection
+      console.log("Testing Supabase connection...");
+      try {
+        const { data, error: pingError } = await supabase.from('leads').select('count').limit(1);
+        if (pingError) {
+          console.error("Supabase connection test failed:", pingError);
+        } else {
+          console.log("Supabase connection test succeeded:", data);
+        }
+      } catch (testError) {
+        console.error("Supabase connection test exception:", testError);
+      }
+      
       toast({
         title: "Erro ao enviar formulário",
         description: "Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.",
