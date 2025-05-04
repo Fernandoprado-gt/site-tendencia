@@ -28,6 +28,7 @@ const ContactForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    console.log("Field updated:", name, value); // Log field changes
   };
 
   const handlePositionChange = (value: string) => {
@@ -35,14 +36,17 @@ const ContactForm = () => {
       ...prev,
       position: value
     }));
+    console.log("Position updated:", value); // Log position changes
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form submission started"); // Log submission start
     setIsSubmitting(true);
     
     // Validate form
     if (!formData.name || !formData.phone || !formData.email || !formData.position) {
+      console.log("Form validation failed:", formData); // Log validation failure
       toast({
         title: "Erro no formulário",
         description: "Por favor, preencha todos os campos.",
@@ -56,19 +60,27 @@ const ContactForm = () => {
       // Debug log - for checking form data before submission
       console.log("Form data being submitted:", formData);
       
-      // Insert lead into Supabase
-      const { error } = await supabase
-        .from('leads')
-        .insert([
-          { 
-            nome: formData.name,
-            telefone: formData.phone,
-            email: formData.email,
-            cargo: formData.position,
-          }
-        ]);
+      // Prepare data object to match Supabase column names
+      const leadData = { 
+        nome: formData.name,
+        telefone: formData.phone,
+        email: formData.email,
+        cargo: formData.position,
+      };
       
-      if (error) throw error;
+      console.log("Lead data being inserted into Supabase:", leadData);
+      
+      // Insert lead into Supabase with explicit response handling
+      const { data, error } = await supabase
+        .from('leads')
+        .insert([leadData]);
+      
+      if (error) {
+        console.error("Supabase insertion error:", error);
+        throw error;
+      }
+      
+      console.log("Supabase insertion successful:", data);
       
       // Show success message
       toast({
@@ -84,7 +96,9 @@ const ContactForm = () => {
       );
       
       // Redirect to WhatsApp after a short delay
+      console.log("Preparing WhatsApp redirect with message:", message);
       setTimeout(() => {
+        console.log("Redirecting to WhatsApp...");
         window.location.href = `https://wa.me/5521979613063?text=${message}`;
         setIsSubmitting(false);
       }, 2000);
@@ -236,7 +250,6 @@ const ContactForm = () => {
           </div>
         </div>
       </div>
-    </section>
   );
 };
 
