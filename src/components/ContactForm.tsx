@@ -1,15 +1,26 @@
-
 import { Button } from "@/components/ui/button";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import LeadForm from "./LeadForm";
+import { trackWhatsAppLeadEvent } from "@/utils/metaPixelUtils";
+
+// Meta Pixel API access token (replace with your actual token)
+const META_API_ACCESS_TOKEN = "YOUR_ACCESS_TOKEN_HERE";
 
 const ContactForm = () => {
-  const handleWhatsAppClick = () => {
-    if (window.fbq) {
-      window.fbq('track', 'Lead');
-      console.log("FB Pixel: Lead event triggered from Contact form WhatsApp button");
+  const handleWhatsAppClick = async () => {
+    try {
+      // Send event to both Meta Pixel and Conversions API
+      await trackWhatsAppLeadEvent(null, META_API_ACCESS_TOKEN);
+      
+      console.log("Contact form WhatsApp click tracked successfully");
+    } catch (error) {
+      console.error("Error tracking WhatsApp click:", error);
+    } finally {
+      // Always redirect to WhatsApp, even if tracking fails
+      setTimeout(() => {
+        window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital.";
+      }, 100);
     }
-    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital.";
   };
 
   return (

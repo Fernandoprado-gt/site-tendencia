@@ -1,24 +1,28 @@
+
 import { Button } from "@/components/ui/button";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import { LeadForm } from "@/components/LeadForm";
+import { trackWhatsAppLeadEvent } from "@/utils/metaPixelUtils";
+
+// Meta Pixel API access token (replace with your actual token)
+const META_API_ACCESS_TOKEN = "YOUR_ACCESS_TOKEN_HERE";
 
 // Separate the tracking and redirection logic
-const handleWhatsAppRedirect = (message: string) => {
-  // Track the lead event in Meta Pixel
-  if (window.fbq) {
-    try {
-      window.fbq('track', 'Lead');
-      console.log("FB Pixel: Lead event triggered from Hero WhatsApp button");
-    } catch (err) {
-      // Silently handle tracking errors to ensure redirection still works
-      console.error("FB Pixel tracking error:", err);
-    }
+const handleWhatsAppRedirect = async (message: string, userEmail: string | null = null) => {
+  try {
+    // Send event to both Meta Pixel and Conversions API
+    await trackWhatsAppLeadEvent(userEmail, META_API_ACCESS_TOKEN);
+    
+    console.log("WhatsApp redirect initiated with message:", message);
+  } catch (error) {
+    // Log error but continue with redirection
+    console.error("Error in WhatsApp tracking:", error);
+  } finally {
+    // Always redirect to WhatsApp, even if tracking fails
+    setTimeout(() => {
+      window.location.href = `https://wa.me/5521979613063?text=${message}`;
+    }, 100);
   }
-  
-  // Safely redirect to WhatsApp with a small delay to ensure tracking completes
-  setTimeout(() => {
-    window.location.href = `https://wa.me/5521979613063?text=${message}`;
-  }, 100);
 };
 
 const HeroSection = () => {

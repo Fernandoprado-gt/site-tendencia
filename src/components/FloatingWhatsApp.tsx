@@ -1,30 +1,29 @@
 
 import { WhatsappIcon } from "./icons/WhatsappIcon";
+import { trackWhatsAppLeadEvent } from "@/utils/metaPixelUtils";
 
-// Separate the tracking and redirection logic into a cleaner utility function
-const handleWhatsAppRedirect = (message: string) => {
-  // Track the lead event in Meta Pixel
-  if (window.fbq) {
-    try {
-      window.fbq('track', 'Lead');
-      console.log("FB Pixel: Lead event triggered from Floating WhatsApp button");
-    } catch (err) {
-      // Silently handle tracking errors to ensure redirection still works
-      console.error("FB Pixel tracking error:", err);
-    }
-  }
-  
-  // Safely redirect to WhatsApp with a small delay to ensure tracking completes
-  setTimeout(() => {
-    window.location.href = `https://wa.me/5521979613063?text=${message}`;
-  }, 100);
-};
+// Meta Pixel API access token (replace with your actual token)
+const META_API_ACCESS_TOKEN = "YOUR_ACCESS_TOKEN_HERE";
 
 const FloatingWhatsApp = () => {
-  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleWhatsAppClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    
     const message = encodeURIComponent("Olá, gostaria de falar com um especialista da Tendência.");
-    handleWhatsAppRedirect(message);
+    
+    try {
+      // Send event to both Meta Pixel and Conversions API
+      await trackWhatsAppLeadEvent(null, META_API_ACCESS_TOKEN);
+      
+      console.log("Floating WhatsApp click tracked successfully");
+    } catch (error) {
+      console.error("Error tracking WhatsApp click:", error);
+    } finally {
+      // Always redirect to WhatsApp, even if tracking fails
+      setTimeout(() => {
+        window.location.href = `https://wa.me/5521979613063?text=${message}`;
+      }, 100);
+    }
   };
 
   return (

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -8,6 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase, testSupabaseConnection } from "@/integrations/supabase/client";
+import { trackFormLeadEvent } from "@/utils/metaPixelUtils";
+
+// Meta Pixel API access token (replace with your actual token)
+const META_API_ACCESS_TOKEN = "YOUR_ACCESS_TOKEN_HERE";
 
 export const LeadForm = () => {
     const { toast } = useToast();
@@ -96,11 +99,17 @@ export const LeadForm = () => {
           
           setFormSubmitted(true);
           
-          // Track CompleteRegistration event
-          if (window.fbq) {
-            window.fbq('track', 'CompleteRegistration');
-            console.log("FB Pixel: CompleteRegistration event triggered");
-          }
+          // Track form submission event with Meta Pixel and Conversions API
+          await trackFormLeadEvent(
+            {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone
+            },
+            META_API_ACCESS_TOKEN
+          );
+          
+          console.log("Form submission tracking completed");
           
           // Create the WhatsApp message with form data
           const message = encodeURIComponent(
@@ -208,6 +217,5 @@ export const LeadForm = () => {
     </>
   );
 };
-
 
 export default LeadForm;
