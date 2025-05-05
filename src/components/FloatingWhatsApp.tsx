@@ -1,14 +1,30 @@
 
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 
+// Separate the tracking and redirection logic into a cleaner utility function
+const handleWhatsAppRedirect = (message: string) => {
+  // Track the lead event in Meta Pixel
+  if (window.fbq) {
+    try {
+      window.fbq('track', 'Lead');
+      console.log("FB Pixel: Lead event triggered from Floating WhatsApp button");
+    } catch (err) {
+      // Silently handle tracking errors to ensure redirection still works
+      console.error("FB Pixel tracking error:", err);
+    }
+  }
+  
+  // Safely redirect to WhatsApp with a small delay to ensure tracking completes
+  setTimeout(() => {
+    window.location.href = `https://wa.me/5521979613063?text=${message}`;
+  }, 100);
+};
+
 const FloatingWhatsApp = () => {
   const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (window.fbq) {
-      window.fbq('track', 'Lead');
-      console.log("FB Pixel: Lead event triggered from Floating WhatsApp button");
-    }
-    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência.";
+    const message = encodeURIComponent("Olá, gostaria de falar com um especialista da Tendência.");
+    handleWhatsAppRedirect(message);
   };
 
   return (

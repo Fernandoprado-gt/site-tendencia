@@ -1,15 +1,30 @@
-
 import { Button } from "@/components/ui/button";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import { LeadForm } from "@/components/LeadForm";
 
-const HeroSection = () => {
-  const handleWhatsAppClick = () => {
-    if (window.fbq) {
+// Separate the tracking and redirection logic
+const handleWhatsAppRedirect = (message: string) => {
+  // Track the lead event in Meta Pixel
+  if (window.fbq) {
+    try {
       window.fbq('track', 'Lead');
       console.log("FB Pixel: Lead event triggered from Hero WhatsApp button");
+    } catch (err) {
+      // Silently handle tracking errors to ensure redirection still works
+      console.error("FB Pixel tracking error:", err);
     }
-    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência.";
+  }
+  
+  // Safely redirect to WhatsApp with a small delay to ensure tracking completes
+  setTimeout(() => {
+    window.location.href = `https://wa.me/5521979613063?text=${message}`;
+  }, 100);
+};
+
+const HeroSection = () => {
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Olá, gostaria de falar com um especialista da Tendência.");
+    handleWhatsAppRedirect(message);
   };
 
   return (
