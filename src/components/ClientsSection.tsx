@@ -88,12 +88,6 @@ const ClientsSection = () => {
             <CarouselPrevious className="absolute -left-4 lg:-left-6 bg-tendencia-dark/80 border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 hidden md:flex" />
             <CarouselNext className="absolute -right-4 lg:-right-6 bg-tendencia-dark/80 border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 hidden md:flex" />
           </Carousel>
-
-          <div className="text-center mt-6 md:mt-8">
-            <p className="text-gray-400 text-xs md:text-sm">
-              Para adicionar novos clientes, edite a lista no início do componente ClientsSection.
-            </p>
-          </div>
         </div>
       </div>
     </section>
