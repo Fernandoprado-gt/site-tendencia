@@ -1,6 +1,7 @@
 
 import { ArrowUpIcon } from "./icons/ArrowUpIcon";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
+
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({
@@ -8,14 +9,29 @@ const Footer = () => {
       behavior: "smooth"
     });
   };
-  return <footer className="bg-tendencia-darker pt-12 pb-6 border-t border-tendencia-cyan/20">
+
+  const handleWhatsAppClick = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Lead');
+      console.log("FB Pixel: Lead event triggered from Footer WhatsApp button");
+    }
+    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital.";
+  };
+
+  return (
+    <footer className="bg-tendencia-darker pt-12 pb-6 border-t border-tendencia-cyan/20">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
           <div>
             <a href="/">
-              <img alt="Logo da Tendência | Estratégias Digitais" className="h-12 md:h-14 w-auto mb-6" onError={e => {
-              e.currentTarget.src = "https://placehold.co/240x56/1A1F2C/00F2FF?text=TENDÊNCIA";
-            }} src="/lovable-uploads/5fe0cd4e-fb0f-458a-a7de-c494046bce22.png" />
+              <img 
+                alt="Logo da Tendência | Estratégias Digitais" 
+                className="h-12 md:h-14 w-auto mb-6" 
+                onError={e => {
+                  e.currentTarget.src = "https://placehold.co/240x56/1A1F2C/00F2FF?text=TENDÊNCIA";
+                }} 
+                src="/lovable-uploads/5fe0cd4e-fb0f-458a-a7de-c494046bce22.png" 
+              />
             </a>
             <p className="text-gray-300 max-w-md">
               Agência especializada em tráfego pago para o mercado imobiliário,
@@ -23,10 +39,21 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-col items-center md:items-end">
-            <button onClick={scrollToTop} className="bg-tendencia-dark p-4 rounded-full border border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 transition-colors mb-6" aria-label="Voltar ao topo">
+            <button 
+              onClick={scrollToTop} 
+              className="bg-tendencia-dark p-4 rounded-full border border-tendencia-cyan/30 text-tendencia-cyan hover:bg-tendencia-cyan/20 transition-colors mb-6" 
+              aria-label="Voltar ao topo"
+            >
               <ArrowUpIcon />
             </button>
-            <a href="https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital." className="bg-cyan-gradient text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2">
+            <a 
+              href="#" 
+              className="bg-cyan-gradient text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2"
+              onClick={(e) => {
+                e.preventDefault();
+                handleWhatsAppClick();
+              }}
+            >
               <WhatsappIcon className="h-5 w-5" /> 
               Falar com um especialista
             </a>
@@ -84,6 +111,8 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} Tendência | Estratégias Digitais. Todos os direitos reservados.</p>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;

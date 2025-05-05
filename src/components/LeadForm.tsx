@@ -1,5 +1,5 @@
-"use client";
 
+"use client";
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -34,7 +34,6 @@ export const LeadForm = () => {
         console.log("Position updated:", value);
       };
     
-
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Form submission started with data:", formData);
@@ -96,6 +95,12 @@ export const LeadForm = () => {
           });
           
           setFormSubmitted(true);
+          
+          // Track CompleteRegistration event
+          if (window.fbq) {
+            window.fbq('track', 'CompleteRegistration');
+            console.log("FB Pixel: CompleteRegistration event triggered");
+          }
           
           // Create the WhatsApp message with form data
           const message = encodeURIComponent(

@@ -25,6 +25,14 @@ const Navbar = () => {
     };
   }, [scrolled]);
   
+  const handleWhatsAppClick = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Lead');
+      console.log("FB Pixel: Lead event triggered from Navbar WhatsApp button");
+    }
+    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência.";
+  };
+  
   return (
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300", 
@@ -82,7 +90,7 @@ const Navbar = () => {
           <Button 
             size="sm" 
             className="bg-cyan-gradient hover:opacity-90 transition-opacity group whitespace-nowrap" 
-            onClick={() => window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência."}
+            onClick={handleWhatsAppClick}
           >
             <WhatsappIcon className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
             Falar conosco
@@ -93,7 +101,7 @@ const Navbar = () => {
         <Button 
           size="sm" 
           className="md:hidden bg-cyan-gradient hover:opacity-90 transition-opacity py-1 px-3" 
-          onClick={() => window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência."}
+          onClick={handleWhatsAppClick}
         >
           <WhatsappIcon className="h-4 w-4 mr-1" />
           <span className="text-xs">Contato</span>

@@ -1,8 +1,17 @@
+
 import { Button } from "@/components/ui/button";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import { LeadForm } from "@/components/LeadForm";
 
 const HeroSection = () => {
+  const handleWhatsAppClick = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Lead');
+      console.log("FB Pixel: Lead event triggered from Hero WhatsApp button");
+    }
+    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência.";
+  };
+
   return (
     <section className="pt-24 pb-16 bg-hero-pattern bg-cover bg-center bg-no-repeat min-h-[90vh] flex items-center">
       <div className="container mx-auto">
@@ -32,7 +41,7 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-cyan-gradient hover:opacity-90 transition-opacity animate-pulse-glow group w-full md:w-auto text-sm md:text-base" 
-                onClick={() => window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Tendência."}
+                onClick={handleWhatsAppClick}
               >
                 <WhatsappIcon className="mr-2 h-4 md:h-5 w-4 md:w-5 group-hover:scale-110 transition-transform" /> 
                 Falar com um especialista agora

@@ -1,8 +1,16 @@
+
 import { Button } from "@/components/ui/button";
 import { WhatsappIcon } from "./icons/WhatsappIcon";
 import LeadForm from "./LeadForm";
 
 const ContactForm = () => {
+  const handleWhatsAppClick = () => {
+    if (window.fbq) {
+      window.fbq('track', 'Lead');
+      console.log("FB Pixel: Lead event triggered from Contact form WhatsApp button");
+    }
+    window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital.";
+  };
 
   return (
     <section id="contact" className="section-padding bg-gradient-to-b from-tendencia-darker to-tendencia-dark relative">
@@ -48,7 +56,7 @@ const ContactForm = () => {
               <Button 
                 size="lg"
                 className="bg-cyan-gradient hover:opacity-90 transition-opacity animate-pulse-glow group"
-                onClick={() => window.location.href = "https://wa.me/5521979613063?text=Olá%2C%20tenho%20interesse%20em%20criar%20uma%20campanha%20com%20a%20Tendência%20Digital."}
+                onClick={handleWhatsAppClick}
               >
                 <WhatsappIcon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" /> 
                 Falar com um especialista agora
