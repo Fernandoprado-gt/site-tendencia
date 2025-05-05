@@ -28,7 +28,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="pt-24 pb-16 bg-hero-pattern bg-cover bg-center bg-no-repeat min-h-[90vh] flex items-center">
+    <section className="pt-24 pb-16 bg-cover bg-center bg-no-repeat min-h-[90vh] flex items-center">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="space-y-6 animate-fade-in">
